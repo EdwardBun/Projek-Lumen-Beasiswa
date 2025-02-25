@@ -11,7 +11,7 @@ class DetailRequest {
         $rules = [
             'beasiswa_id' => 'required|exists:beasiswas,id',
             'status' => 'required|in:' . implode(',', [Detail::AKTIF, Detail::SELESAI, Detail::BERHENTI]),
-            'waktu_bulan' => 'required|integer|min:1',
+            'waktu_bulan' => 'required|integer|min:0',
         ];
 
         $validator = app(Factory::class)->make($request->all(), $rules);

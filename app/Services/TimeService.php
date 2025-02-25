@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Repositories\TimeRepository;
+use App\Models\Detail;
 
 class TimeService
 {
@@ -14,6 +15,13 @@ class TimeService
 
     public function store(array $data)
     {
-        return $this->timeRepository->storeTime($data);
+        $time = $this->timeRepository->storeTime($data);
+
+        if ($detail = Detail::find($data['detail_id'])) {
+            $detail->updateWaktuBulan($data['time_plus'] ?? 0, $data['time_minus'] ?? 0);
+        }
+
+    
+        return $time;
     }
 }

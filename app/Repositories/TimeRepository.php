@@ -12,12 +12,12 @@ class TimeRepository
         $time = Time::create($data);
 
         // Update waktu_bulan di tabel detail
-        $detail = Detail::find($data['detail_id']);
-        if ($detail) {
-            $detail->updateWaktuBulan($data['time_plus'], $data['time_minus']);
+        if ($detail = Detail::find($data['detail_id'])) {
+            $detail->updateWaktuBulan($data['time_plus'] ?? 0, $data['time_minus'] ?? 0);
         }
 
-        return $time;
+        // Load relasi setelah penyimpanan
+        return $time->load('beasiswa', 'detail');
     }
 }
 

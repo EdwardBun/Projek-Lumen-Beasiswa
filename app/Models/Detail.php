@@ -30,15 +30,18 @@ class Detail extends Model
 
     public function updateWaktuBulan($time_plus, $time_minus)
 {
-    // Pastikan nilai tidak null, jika null maka dianggap 0
     $time_plus = $time_plus ?? 0;
     $time_minus = $time_minus ?? 0;
 
-    // Hitung perubahan waktu_bulan
+    // Update waktu_bulan
     $this->waktu_bulan += $time_plus;
     $this->waktu_bulan -= $time_minus;
 
-    // Simpan perubahan ke database
+    if ($this->waktu_bulan <= 0) {
+        $this->waktu_bulan = 0;
+        $this->status = self::SELESAI;
+    }
+
     $this->save();
 }
 

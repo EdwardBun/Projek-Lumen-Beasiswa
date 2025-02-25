@@ -22,12 +22,5 @@ class Time extends Model
         return $this->belongsTo(Detail::class, 'detail_id');
     }
 
-    public function updateWaktuBulan($timePlus, $timeMinus)
-{
-    $this->waktu_bulan += ($timePlus ?? 0);
-    $this->waktu_bulan -= ($timeMinus ?? 0);
-    $this->save();
-}
-
 }
 
